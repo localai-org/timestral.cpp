@@ -339,7 +339,6 @@ static int64_t qk64_keys4(const float* q,const float* k,float* dots,
     }
     return key;
 }
-#endif
 // 16 keys per pass: four independent double chains, ascending d, each add
 // of an exactly representable float*float product (fma == mul then add).
 __attribute__((target("avx2,fma")))
@@ -368,6 +367,7 @@ static int64_t qk64_keys16(const float* q,const float* k,float* dots,
     }
     return key;
 }
+#endif
 void detail::qk64_dots(const float* q,const float* k,float* out,int64_t keys,int64_t stride,int64_t hd,bool force_scalar,double* accumulators) {
     int64_t first=0;
 #ifdef TS_LINEAR_AVX2
